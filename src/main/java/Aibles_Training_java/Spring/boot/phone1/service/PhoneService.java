@@ -6,4 +6,5 @@ import Aibles_Training_java.Spring.boot.phone1.dto.response.PhoneResponse;
 public interface PhoneService {
     PhoneResponse create(PhoneRequest request);
     PhoneResponse getById(String id);
+    PhoneResponse update(String id, PhoneRequest request);
 }
