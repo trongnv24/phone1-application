@@ -34,4 +34,13 @@ public class PhoneController {
         log.info(" Finish api get phone , Phone Id : {} === ", response.getId());
         return response;
     }
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public PhoneResponse update(@PathVariable("id") String id, @RequestBody PhoneRequest request){
+        log.info(" === Start api update phone === ");
+        log.info(" === String id : {}, Request Body : {} === ", id, request);
+        PhoneResponse response = phoneService.update(id, request);
+        log.info(" === Finish api update phone, Phone Id : {} === ", response.getId());
+        return response;
+    }
 }

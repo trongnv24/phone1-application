@@ -46,4 +46,23 @@ public class PhoneServiceImpl implements PhoneService {
         log.info(" === Finish api getById phone, Phone id :{} === ", response.getId());
         return response;
     }
+
+    @Override
+    public PhoneResponse update(String id, PhoneRequest request) {
+        log.info(" === Start api update phone === ");
+        log.info(" === String id : {}, Request Body : {} === ", id);
+        Optional<Phone> optionalPhone = repository.findById(id);
+        if (!optionalPhone.isPresent()) {
+            throw new RuntimeException();
+        }
+        Phone phone = optionalPhone.get();
+        phone.setName(request.getName());
+        phone.setBrand(request.getBrand());
+        phone.setModel(request.getModel());
+        phone.setColor(request.getColor());
+        phone = repository.save(phone);
+        PhoneResponse response = convertPhoneToPhoneResponse(phone);
+        log.info( " === Finish api update phone, Phone Id : {}  === ", phone.getId());
+        return response;
+    }
 }
