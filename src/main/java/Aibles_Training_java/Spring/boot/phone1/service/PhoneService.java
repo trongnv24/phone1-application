@@ -7,4 +7,5 @@ public interface PhoneService {
     PhoneResponse create(PhoneRequest request);
     PhoneResponse getById(String id);
     PhoneResponse update(String id, PhoneRequest request);
+    void deleteById(String id);
 }
