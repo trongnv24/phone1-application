@@ -8,6 +8,8 @@ import Aibles_Training_java.Spring.boot.phone1.service.PhoneService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 import static Aibles_Training_java.Spring.boot.phone1.service.mapping.PhoneServiceMapping.convertPhoneToPhone;
 import static Aibles_Training_java.Spring.boot.phone1.service.mapping.PhoneServiceMapping.convertPhoneToPhoneResponse;
 
@@ -28,6 +30,20 @@ public class PhoneServiceImpl implements PhoneService {
         phone = repository.save(phone);
         PhoneResponse response = convertPhoneToPhoneResponse(phone);
         log.info(" === Finish api create new phone, Phone Id : {}  === ", phone.getId());
+        return response;
+    }
+
+    @Override
+    public PhoneResponse getById(String id) {
+        log.info(" === Start api get phone === ");
+        log.info(" === String id : {} === ", id);
+        Optional<Phone> optionalPhone = repository.findById(id);
+        if (!optionalPhone.isPresent()) {
+            throw new RuntimeException();
+        }
+        Phone phone = optionalPhone.get();
+        PhoneResponse response = convertPhoneToPhoneResponse(phone);
+        log.info(" === Finish api getById phone, Phone id :{} === ", response.getId());
         return response;
     }
 }
